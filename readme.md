@@ -17,6 +17,16 @@ For each questionnaire session, a performance summary is generated and passed to
 - Install the required packages using  
   `pip install -r requirements.txt`
 
+- Environment Variables
+  * Create a `.env` file in the root directory and add your API key.
+  * You can use either **Gemini** (used during development) or **OpenAI**.
+
+### Note for Evaluators
+
+Since the OpenAI API requires paid usage, Gemini was used during development and testing. However, the equivalent OpenAI implementation has also been included in the codebase as commented code in [evaluation.py](app/services/evaluation.py).
+
+The current prototype uses a single implementation path for simplicity. Alternative designs—such as exposing separate endpoints for different LLM providers or allowing the user to select the model at runtime—were considered. However, these approaches were deemed unnecessary for the scope of this prototype and would introduce additional complexity without providing significant benefit for the assignment.
+
 - Run the backend using  
   `uvicorn app.main:app --reload`
 
@@ -52,6 +62,8 @@ The current adaptive algorithm adjusts difficulty based on a **single global abi
 As a result, if a student performs well in one topic (e.g., Mathematics) but poorly in another (e.g., Vocabulary), the overall ability score may increase and cause the system to serve harder questions even in the weaker topic.
 
 A more robust approach would involve maintaining **separate ability estimates per topic** (e.g., Algebra ability, Arithmetic ability, Vocabulary ability). The adaptive question selection algorithm could then choose questions based on the student's **topic-specific proficiency**, resulting in a more accurate assessment of strengths and weaknesses.
+
+In a nutshell, moving from 1D IRT to multi-dimensional IRT
 
 ## 3. Scalable Question Retrieval
 

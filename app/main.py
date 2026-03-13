@@ -30,25 +30,6 @@ def create_student(name: str):
 
     return {"student_id": str(result.inserted_id)}
 
-# @app.post("/start-session")
-# def start_session():
-
-#     session = {
-#         "ability": 0.5,
-#         "asked_questions": [],
-#         "performance": {
-#             "correct": 0,
-#             "incorrect": 0,
-#             "topics_wrong": {},
-#             "max_difficulty_correct": 0
-#         },
-#         "questions_answered": 0
-#     }
-
-#     result = sessions_collection.insert_one(session)
-
-#     return {"session_id": str(result.inserted_id)}
-
 @app.post("/start-session")
 def start_session(student_id: str):
 
@@ -74,8 +55,6 @@ def start_session(student_id: str):
 
 @app.get("/next-question/{session_id}")
 def next_question(session_id: str):
-
-    # session = sessions_collection.find_one({"_id": ObjectId(session_id)})
     from bson.errors import InvalidId
 
     try:
@@ -163,26 +142,7 @@ def summary(session_id: str):
     return session["performance"]
 
 # Give examples of difficulty
-# Use of langgraph for input
-
-# @app.get("/study-plan/{session_id}")
-# def study_plan(session_id: str):
-
-#     try:
-#         session = sessions_collection.find_one({"_id": ObjectId(session_id)})
-#     except InvalidId:
-#         raise HTTPException(status_code=400, detail="Invalid session_id")
-
-#     if not session:
-#         raise HTTPException(status_code=404, detail="Session not found")
-    
-#     summary = str(session["performance"])
-
-#     plan = generate_study_plan(summary)
-
-#     return {"study_plan": plan}
-
-
+# Use of langgraph for getting student's POV as well
 
 from bson.errors import InvalidId
 
@@ -213,7 +173,7 @@ def study_plan(session_id: str):
 
     previous_context = ""
 
-    for s in previous_sessions:
+    for s in previous_sessions: # In case somebody decides to increase the number of prev sessions to be considered
         perf = s["performance"]
         rec = s.get("ai_recommendation", "No recommendation recorded")
 
