@@ -1,0 +1,202 @@
+[
+    {
+    "question_id": 1,
+    "question": "If 2x + 5 = 17, what is the value of x?",
+    "options": ["5", "6", "7", "8"],
+    "correct_answer": "6",
+    "topic": "Algebra",
+    "difficulty": 0.3,
+    "tags": ["linear equation"],
+    "explanation": "2x + 5 = 17 → 2x = 12 → x = 6"
+  },
+  {
+    "question_id": 2,
+    "question": "Solve for x: 3x - 4 = 2x + 5.",
+    "options": ["7", "8", "9", "10"],
+    "correct_answer": "9",
+    "topic": "Algebra",
+    "difficulty": 0.4,
+    "tags": ["linear equation"],
+    "explanation": "3x - 4 = 2x + 5 → x = 9"
+  },
+  {
+    "question_id": 3,
+    "question": "If x² = 49, what is a possible value of x?",
+    "options": ["6", "7", "-7", "Both 7 and -7"],
+    "correct_answer": "Both 7 and -7",
+    "topic": "Algebra",
+    "difficulty": 0.5,
+    "tags": ["quadratic"],
+    "explanation": "Square roots of 49 are ±7."
+  },
+  {
+    "question_id": 4,
+    "question": "What is 15% of 200?",
+    "options": ["25", "30", "35", "40"],
+    "correct_answer": "30",
+    "topic": "Arithmetic",
+    "difficulty": 0.2,
+    "tags": ["percentage"],
+    "explanation": "0.15 x 200 = 30"
+  },
+  {
+    "question_id": 5,
+    "question": "A number increased by 20% becomes 120. What was the original number?",
+    "options": ["80", "90", "100", "110"],
+    "correct_answer": "100",
+    "topic": "Arithmetic",
+    "difficulty": 0.5,
+    "tags": ["percentage"],
+    "explanation": "1.2x = 120 → x = 100"
+  },
+  {
+    "question_id": 6,
+    "question": "What is the average of 4, 8, and 12?",
+    "options": ["6", "7", "8", "9"],
+    "correct_answer": "8",
+    "topic": "Arithmetic",
+    "difficulty": 0.2,
+    "tags": ["average"],
+    "explanation": "(4 + 8 + 12) / 3 = 8"
+  },
+  {
+    "question_id": 7,
+    "question": "What is the meaning of the word 'abundant'?",
+    "options": ["Scarce", "Plentiful", "Temporary", "Hidden"],
+    "correct_answer": "Plentiful",
+    "topic": "Vocabulary",
+    "difficulty": 0.3,
+    "tags": ["synonym"],
+    "explanation": "'Abundant' means existing in large quantities."
+  },
+  {
+    "question_id": 8,
+    "question": "Choose the synonym of 'meticulous'.",
+    "options": ["Careless", "Detailed", "Lazy", "Uncertain"],
+    "correct_answer": "Detailed",
+    "topic": "Vocabulary",
+    "difficulty": 0.5,
+    "tags": ["synonym"],
+    "explanation": "'Meticulous' means very careful and precise."
+  },
+  {
+    "question_id": 9,
+    "question": "Which word is closest in meaning to 'brevity'?",
+    "options": ["Length", "Shortness", "Strength", "Silence"],
+    "correct_answer": "Shortness",
+    "topic": "Vocabulary",
+    "difficulty": 0.4,
+    "tags": ["synonym"],
+    "explanation": "'Brevity' refers to shortness in duration or expression."
+  },
+  {
+    "question_id": 10,
+    "question": "Solve for x: 5x + 10 = 35.",
+    "options": ["3", "4", "5", "6"],
+    "correct_answer": "5",
+    "topic": "Algebra",
+    "difficulty": 0.3,
+    "tags": ["linear equation"],
+    "explanation": "5x + 10 = 35 → 5x = 25 → x = 5"
+  },
+  {
+    "question_id": 11,
+    "question": "If 4x - 7 = 2x + 9, what is the value of x?",
+    "options": ["6", "7", "8", "9"],
+    "correct_answer": "8",
+    "topic": "Algebra",
+    "difficulty": 0.6,
+    "tags": ["linear equation"],
+    "explanation": "4x - 7 = 2x + 9 → 2x = 16 → x = 8"
+  },
+  {
+    "question_id": 12,
+    "question": "Solve for x: 2(x + 3) = 3x - 4.",
+    "options": ["8", "9", "10", "11"],
+    "correct_answer": "10",
+    "topic": "Algebra",
+    "difficulty": 0.65,
+    "tags": ["linear equation"],
+    "explanation": "2x + 6 = 3x - 4 → x = 10"
+  },
+  {
+    "question_id": 13,
+    "question": "If x² - 9 = 0, what are the solutions for x?",
+    "options": ["3", "-3", "Both 3 and -3", "0"],
+    "correct_answer": "Both 3 and -3",
+    "topic": "Algebra",
+    "difficulty": 0.6,
+    "tags": ["quadratic"],
+    "explanation": "x² = 9 → x = ±3"
+  },
+  {
+    "question_id": 14,
+    "question": "A number is decreased by 25% and becomes 75. What was the original number?",
+    "options": ["90", "95", "100", "105"],
+    "correct_answer": "100",
+    "topic": "Arithmetic",
+    "difficulty": 0.6,
+    "tags": ["percentage"],
+    "explanation": "0.75x = 75 → x = 100"
+  },
+  {
+    "question_id": 15,
+    "question": "The average of five numbers is 18. If four of the numbers are 10, 15, 20, and 25, what is the fifth number?",
+    "options": ["18", "20", "22", "30"],
+    "correct_answer": "20",
+    "topic": "Arithmetic",
+    "difficulty": 0.7,
+    "tags": ["average"],
+    "explanation": "Total sum = 5 x 18 = 90. Known sum = 70 → missing number = 20"
+  },
+  {
+    "question_id": 16,
+    "question": "If the ratio of two numbers is 3:5 and their sum is 64, what is the larger number?",
+    "options": ["35", "40", "45", "50"],
+    "correct_answer": "40",
+    "topic": "Arithmetic",
+    "difficulty": 0.7,
+    "tags": ["ratio"],
+    "explanation": "3k + 5k = 8k = 64 → k = 8 → larger number = 5k = 40"
+  },
+  {
+    "question_id": 17,
+    "question": "Choose the word closest in meaning to 'pragmatic'.",
+    "options": ["Idealistic", "Practical", "Emotional", "Careless"],
+    "correct_answer": "Practical",
+    "topic": "Vocabulary",
+    "difficulty": 0.6,
+    "tags": ["synonym"],
+    "explanation": "'Pragmatic' means dealing with things sensibly and practically."
+  },
+  {
+    "question_id": 18,
+    "question": "Choose the antonym of 'benevolent'.",
+    "options": ["Kind", "Generous", "Cruel", "Helpful"],
+    "correct_answer": "Cruel",
+    "topic": "Vocabulary",
+    "difficulty": 0.65,
+    "tags": ["antonym"],
+    "explanation": "'Benevolent' means kind or well-meaning, opposite is cruel."
+  },
+  {
+    "question_id": 19,
+    "question": "If 3x + 2y = 12 and x = 2, what is the value of y?",
+    "options": ["2", "3", "4", "5"],
+    "correct_answer": "3",
+    "topic": "Algebra",
+    "difficulty": 0.7,
+    "tags": ["linear equations"],
+    "explanation": "3(2) + 2y = 12 → 6 + 2y = 12 → 2y = 6 → y = 3"
+  },
+  {
+    "question_id": 20,
+    "question": "What is the value of x if log₁₀(100) = x?",
+    "options": ["1", "2", "10", "100"],
+    "correct_answer": "2",
+    "topic": "Algebra",
+    "difficulty": 0.75,
+    "tags": ["logarithm"],
+    "explanation": "log₁₀(100) = 2 because 10² = 100"
+  }
+]
