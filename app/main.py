@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
 from bson import ObjectId
-from app.evaluation import generate_study_plan
+from requests import session
+from app.services.evaluation import generate_study_plan
 from app.services.adaptiveTesting import (
     select_next_question,
     update_ability
@@ -10,7 +11,11 @@ from bson.errors import InvalidId
 
 app = FastAPI()
 
-client = MongoClient("mongodb://localhost:27017/")
+try:
+    client = MongoClient("mongodb://localhost:27017/")
+except Exception:
+    raise RuntimeError("Database connection failed")
+
 db = client["adaptive_test"]
 
 questions_collection = db["questions"] # this contains the questions
@@ -22,25 +27,42 @@ students_collection = db["students"] # this can be used to store student perform
 @app.post("/students")
 def create_student(name: str):
 
+    if not name.strip():
+        raise HTTPException(status_code=400, detail="Name cannot be empty")
+
     student = {
         "name": name
     }
 
     result = students_collection.insert_one(student)
 
-    return {"student_id": str(result.inserted_id)}
+    return {
+        "student_id": str(result.inserted_id),
+        "message": "Student created. Use this student_id to start a test session."
+        }
 
 @app.post("/start-session")
 def start_session(student_id: str):
 
+    try:
+        student_oid = ObjectId(student_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid student_id")
+
+    student = students_collection.find_one({"_id": student_oid})
+
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
     session = {
-        "student_id": ObjectId(student_id),
+        "student_id": student_oid,
         "ability": 0.5,
         "asked_questions": [],
         "performance": {
             "correct": 0,
             "incorrect": 0,
             "topics_wrong": {},
+            "topic_correct": {},
             "max_difficulty_correct": 0
         },
         "questions_answered": 0
@@ -77,7 +99,6 @@ def next_question(session_id: str):
         return {"message": "Test complete"}
 
     return {
-        # "question_id": str(question["_id"]),
         "question_id": str(question["_id"]),
         "question": question["question"],
         "options": question["options"],
@@ -91,8 +112,25 @@ def next_question(session_id: str):
 @app.post("/submit-answer")
 def submit_answer(session_id: str, question_id: str, answer: str):
 
-    session = sessions_collection.find_one({"_id": ObjectId(session_id)})
-    question = questions_collection.find_one({"_id": ObjectId(question_id)})
+    try:
+        session_oid = ObjectId(session_id)
+        question_oid = ObjectId(question_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid session_id or question_id")
+
+    session = sessions_collection.find_one({"_id": session_oid})
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    question = questions_collection.find_one({"_id": question_oid})
+    if not question:
+        raise HTTPException(status_code=404, detail="Question not found")
+
+    if question["_id"] in session["asked_questions"]:
+        return {
+            "message": "This question has already been answered for this session.",
+            "updated_ability": session["ability"]
+        }
 
     correct = answer.strip().lower() == question["correct_answer"].strip().lower()
 
@@ -108,14 +146,17 @@ def submit_answer(session_id: str, question_id: str, answer: str):
         "$inc": {"questions_answered": 1}
     }
 
+    topic = question["topic"]
+    
     if correct:
         update_query["$inc"]["performance.correct"] = 1
+        update_query["$inc"][f"performance.topic_correct.{topic}"] = 1
         update_query["$max"] = {
             "performance.max_difficulty_correct": question["difficulty"]
         }
     else:
         update_query["$inc"]["performance.incorrect"] = 1
-        update_query["$inc"][f"performance.topics_wrong.{question['topic']}"] = 1
+        update_query["$inc"][f"performance.topics_wrong.{topic}"] = 1
 
     sessions_collection.update_one(
         {"_id": ObjectId(session_id)},
@@ -141,10 +182,8 @@ def summary(session_id: str):
 
     return session["performance"]
 
-# Give examples of difficulty
+# Shouldn't model get an example of a question to know what difficulty level means in the context of this test? Or maybe this is handled if multiple sessions are conducted for a student since then it becomes relative
 # Use of langgraph for getting student's POV as well
-
-from bson.errors import InvalidId
 
 # I am manually passing the params, without frontend, to test the endpoint. In real implementation, these params will be passed from frontend. 
 
@@ -170,6 +209,8 @@ def study_plan(session_id: str):
             }
         ).sort("_id", -1).limit(1) # since this is prototype, limiting to last session for context, can be increased later (with different prompt engineering to ensure we don't exceed token limits and more weightage is given to recent sessions)
     )
+    
+    # The previous generated summary, itself would have the context of all the previous sessions, so we can use that summary as well in the prompt, instead of fetching multiple previous sessions and making the prompt too long. This way we can also give more weightage to recent performance.
 
     previous_context = ""
 
@@ -200,7 +241,7 @@ def study_plan(session_id: str):
         """
 
     prompt = f"""
-        You are an AI learning assistant.
+        You are an AI learning assistant. A student completed an adaptive GRE test.
 
         Below is the student's learning history.
 

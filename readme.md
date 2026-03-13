@@ -12,6 +12,34 @@ This process is repeated until either a predefined number of iterations is reach
 
 For each questionnaire session, a performance summary is generated and passed to a GenAI model. Based on this summary, the model generates personalized suggestions for improvement and study strategy.
 
+# API Documentation
+
+## 1. POST /students
+
+Creates a new student entry in the database.
+Query Params : Name (string)
+
+## 2. POST /start-session
+
+Creates a new session for the student.
+Query Params : student_Id (string)
+
+## 3. GET /next-question/
+Returns the next question based on the ability of the student.
+Query Params : session_id (string)
+
+## 4. POST /submit-answer
+Summits the answer to a question to a particular session.
+Query Params : session_id (string) and question_id (string)
+
+## 5. GET /summary
+Presents the raw summary for a session.
+Query Params : session_id (string)
+
+## 6. GET /study-plan/
+Returns the AI generated 3 days Study Plan for the particular student based on the current and previous sessions
+Query Params : session_id (string)
+
 # How to start
 
 - Install the required packages using  
@@ -35,7 +63,9 @@ The current prototype uses a single implementation path for simplicity. Alternat
 
 - Test the backend using the following flow:
 
-  **Start Session → Get Question → Submit Answer → Repeat Get Question → Generate AI Plan**
+  **Create a new Student -> Start Session → Get Question → Submit Answer → Repeat Get Question → Generate AI Plan**
+
+  For best evaluation, it is recommended that multiple sessions are attempted for a single student.
 
 # AI Usage Log
 
@@ -51,7 +81,7 @@ There are several opportunities to further enhance the adaptive diagnostic engin
 
 ## 1. Conversational Adaptive Agent
 
-The current system generates a study plan based solely on the performance summary derived from the test session. In future iterations, this can be extended using an agent-based framework such as **LangGraph** to create an interactive diagnostic agent.
+The current system generates a study plan based solely on the performance summary derived from the test session. In future, this can be extended using an agent-based framework such as **LangGraph** to create an interactive diagnostic agent.
 
 Instead of relying only on test summaries, the agent could dynamically request additional information from the student (e.g., study habits, preparation timeline, prior knowledge, or target exam score). This additional context would allow the system to generate more personalized and actionable learning plans.
 
@@ -70,3 +100,9 @@ In a nutshell, moving from 1D IRT to multi-dimensional IRT
 Currently, the system loads all questions from the database and selects the closest difficulty level in memory. While this works for a small dataset, it may not scale well for larger question banks.
 
 A more scalable approach would involve querying the database for questions within a difficulty range (e.g., `ability ± ε`) and performing adaptive selection within that subset. This would significantly reduce memory usage and improve performance in production environments.
+
+### 4. Using Pydantic Models
+
+Currently, several endpoints accept parameters through query parameters. A cleaner and more scalable approach would be to define request schemas using **Pydantic models**, allowing the API to accept structured JSON request bodies.
+
+This would improve input validation, make the API interface clearer, and result in more maintainable endpoint definitions.

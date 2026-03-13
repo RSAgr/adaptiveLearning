@@ -27,11 +27,17 @@ GitHub Copilot generated multiple iterative suggestions, but most of them were t
 ### 2. Help with the Syntax of Code Snippets
 ChatGPT was used for assistance with the syntax of certain backend code snippets. Most of the generated code was correct and usable. However, the MongoDB schema initially contained a few unnecessary attributes. Additionally, the AI occasionally produced inconsistent naming conventions, which caused issues when retrieving questions from the database (related to the issue described in the previous point).
 
+Though the gpt seemed to forget the context after a while. Suggesting unnecessary improvements in the code.
+
 ### 3. README Refinement
 ChatGPT was used to refine the structure and readability of the README file. The initial content and explanation were written manually, after which the model was asked only to improve formatting and clarity without altering the intended meaning.
 
 ### 4. General Clarifications
-ChatGPT was used for conceptual clarifications related to the assignment, such as understanding the role of Item Response Theory (IRT) in adaptive learning systems. It was also used to explore options for using generative AI in the feedback stage. Since some AI APIs incur costs, alternative solutions were explored for testing, and the Gemini API free tier was used for local experimentation.
+ChatGPT was used for conceptual clarifications related to the assignment, such as understanding the role of Item Response Theory (IRT) in adaptive learning systems. It was also used to explore options for using generative AI in the feedback stage. Since some AI APIs incur costs, alternative solutions were explored for testing, and the Gemini API free tier was used for local experimentation. Finally, GPT suggested giving a commented code snippet, this ways the evaluator can easily switch to OpenAI if he/she wants to use it instead of Gemini API
 
 ### 5. Refining the AI Log
 This AI usage log itself was refined with the assistance of an AI tool to improve grammar, clarity, and structure while preserving the original content and intent.
+
+### 6. Generating the Question Set
+AI assistance was used to generate the initial set of 20 GRE-style questions.  
+The generated questions included additional attributes such as `explanation` and `question_id`. While the system currently relies on MongoDB’s automatically generated `_id` field instead of `question_id`, these attributes were retained as they may be useful for future extensions (e.g., providing explanations after answering a question or supporting external question identifiers).

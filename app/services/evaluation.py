@@ -11,11 +11,7 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 def generate_study_plan(summary):
 
     prompt = f"""
-    A student completed an adaptive GRE test.
-
-    Performance summary:
     {summary}
-
     Generate a concise 3-step study plan to improve the student's weak areas.
     """
 
@@ -25,10 +21,14 @@ def generate_study_plan(summary):
 
 # ---------------- OPENAI IMPLEMENTATION (COMMENTED FOR NOW) ----------------
 
-# Uncomment this block when switching to OpenAI
+# Uncomment this block when switching to OpenAI and instead comment the above lines
 
 # from openai import OpenAI
 # import os
+#
+# from dotenv import load_dotenv
+
+# load_dotenv()
 #
 # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 #
