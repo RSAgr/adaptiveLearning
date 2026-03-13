@@ -139,8 +139,9 @@ def submit_answer(session_id: str, question_id: str, answer: str):
         "correct": correct,
         "updated_ability": ability
     }
-    
-@app.get("/summary/{session_id}")
+ 
+# Though not used in the current flow, this endpoint can be useful for users to check their performance summary after completing the test or at any point during the test. It provides insights into their strengths and weaknesses, which can help them manually divert focus on specific areas for improvement.   
+@app.get("/summary/{session_id}")                      
 def summary(session_id: str):
 
     session = sessions_collection.find_one({"_id": ObjectId(session_id)})
