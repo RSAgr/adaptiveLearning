@@ -26,5 +26,11 @@ For each questionnaire session, a performance summary is generated and passed to
 - Test the backend using the following flow:
 
   **Start Session → Get Question → Submit Answer → Repeat Get Question → Generate AI Plan**
-  
-# AI logs
+
+# AI Usage Log
+
+This project was developed with assistance from AI tools for ideation, debugging, and documentation.
+
+A detailed log of AI interactions, prompts, and how the outputs were used or modified can be found here:
+
+[AI Usage Log](ai_log.md)
