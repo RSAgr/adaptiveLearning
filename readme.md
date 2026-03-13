@@ -34,3 +34,27 @@ This project was developed with assistance from AI tools for ideation, debugging
 A detailed log of AI interactions, prompts, and how the outputs were used or modified can be found here:
 
 [AI Usage Log](ai_log.md)
+
+# Future Scope and Improvements
+
+There are several opportunities to further enhance the adaptive diagnostic engine:
+
+## 1. Conversational Adaptive Agent
+
+The current system generates a study plan based solely on the performance summary derived from the test session. In future iterations, this can be extended using an agent-based framework such as **LangGraph** to create an interactive diagnostic agent.
+
+Instead of relying only on test summaries, the agent could dynamically request additional information from the student (e.g., study habits, preparation timeline, prior knowledge, or target exam score). This additional context would allow the system to generate more personalized and actionable learning plans.
+
+## 2. Topic-Aware Adaptive Difficulty
+
+The current adaptive algorithm adjusts difficulty based on a **single global ability score**, without distinguishing between subject areas.
+
+As a result, if a student performs well in one topic (e.g., Mathematics) but poorly in another (e.g., Vocabulary), the overall ability score may increase and cause the system to serve harder questions even in the weaker topic.
+
+A more robust approach would involve maintaining **separate ability estimates per topic** (e.g., Algebra ability, Arithmetic ability, Vocabulary ability). The adaptive question selection algorithm could then choose questions based on the student's **topic-specific proficiency**, resulting in a more accurate assessment of strengths and weaknesses.
+
+## 3. Scalable Question Retrieval
+
+Currently, the system loads all questions from the database and selects the closest difficulty level in memory. While this works for a small dataset, it may not scale well for larger question banks.
+
+A more scalable approach would involve querying the database for questions within a difficulty range (e.g., `ability ± ε`) and performing adaptive selection within that subset. This would significantly reduce memory usage and improve performance in production environments.
